@@ -1,0 +1,31 @@
+apis:
+
+  - host: localhost
+    path: /auth
+    path-type: prefix
+    target:
+      path: /
+      protocol: http
+      members:
+      - host: volt-auth
+        port: 8080
+
+  - host: localhost
+    path: /resources
+    path-type: prefix
+    target:
+      path: /resources
+      protocol: http
+      members:
+      - host: volt-auth
+        port: 8080
+
+  - host: localhost
+    path: /admin
+    path-type: prefix
+    target:
+      path: /admin
+      protocol: http
+      members:
+      - host: volt-auth
+        port: 8080

@@ -1,0 +1,61 @@
+version: "3.7"
+services:
+  volt-gateway:
+    environment:
+      TZ: "Asia/Seoul"
+    image: sanjuck/volt-gateway:latest
+    network_mode: bridge
+    links:
+      - volt-auth
+    volumes:
+      - ./conf/:/app/conf/
+      - ./logger.yaml:/app/logger.yaml
+    ports:
+      - "9443:9443"
+      - "9080:9080"
+
+  volt-configurer:
+    environment:
+      TZ: "Asia/Seoul"
+    image: sanjuck/volt-configurer:latest
+    network_mode: bridge
+    volumes:
+      - ./conf/:/app/conf/
+      - ./logger.yaml:/app/logger.yaml
+
+  volt-admin:
+    image: sanjuck/volt-admin:latest
+    network_mode: bridge
+    volumes:
+      - ./conf/:/app/conf/
+      - ./logger.yaml:/app/logger.yaml
+    links:
+      - volt-auth
+    depends_on:
+      - volt-auth
+    environment:
+      TZ: "Asia/Seoul"
+      KEYCLOAK_URL: http://localhost:9082
+      KEYCLOAK_REALM: master
+      KEYCLOAK_CLIENTID: volt
+    ports:
+      - "9081:9080"
+
+  volt-auth:
+    container_name: volt-auth
+    image: sanjuck/volt-auth
+    restart: unless-stopped
+    network_mode: "bridge"
+    hostname: volt-auth
+    environment:
+      TZ: "Asia/Seoul"
+      KEYCLOAK_BASE_URL: "http://localhost:9082"
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+      KEYCLOAK_CLIENTID: "volt"
+      # GITLAB_BASE_URL: "http://localhost:9083"
+      ADMIN_BASE_URL: "http://localhost:9081"
+    volumes:
+      - "./data/keycloak/deployments:/opt/jboss/keycloak/standalone/deployments"
+    ports:
+      - "9082:8080"

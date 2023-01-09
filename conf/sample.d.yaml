@@ -1,0 +1,93 @@
+apis:
+
+  - host: localhost
+    path: /todos
+    path-type: prefix
+    target:
+      path: /todos
+      protocol: https
+      members:
+      - host: jsonplaceholder.typicode.com
+        port: 443
+
+  - host: localhost
+    path: /ctx/*
+    target:
+      path: /todos/{1}
+      protocol: https
+      members:
+      - host: jsonplaceholder.typicode.com
+        port: 443
+
+  - host: localhost
+    path: /ctx/**/*
+    target:
+      path: /todos/{2}
+      protocol: https
+      members:
+      - host: jsonplaceholder.typicode.com
+        port: 443
+
+    # auth:
+    #   keycloak:
+    #     baseUrl: http://localhost:8888
+    #     realm: master
+    #     client: test
+
+tlss:
+  - host: local.s.com
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCy3K9uSGJaSNG+
+      Fd+4/rII6D8rUMr8hwcItjFqiCvoXxqvljSjWNKBloBu1s372tqKs/snq8Za6QZo
+      l5ZtcJwX4bv988IPb17bc2JMsWxXzYg9I9RZMBSilEGcI5VkE6tnOFI0/dl1/ZE4
+      GwZq1xXGCL9XcLcH77zSYVYYHx/Vm2ENiD7blVOB2bku16iTfxkQj0rMbHfMGC/G
+      zXYxD8CeCtjjpXDNpnfDTDW/YZmWxRjgiB2vVUrKUintSahB/ffTBUr2Vye3IHCV
+      vEFhHxCriQ0JNZA54yXpp2ff50CxHjl3R7PeswOjPL8Cg5QEHtfebyvES8mAyUIW
+      2Fo6UG4PAgMBAAECggEBAJt2/nUZLYPUL5rNYHxnxU/ArsdznjwJEbAczK8QVTnR
+      EFz2biJdHfvNWSz+QGRdQf+1mOROhkaWrR9UQ0g0zThk2QZPTaok34pXrGWFAer/
+      lx+tePFcvVLjEnQo6bzm6+D4L1woGVBZalQeCWHsOdy71bSnIDAhzTn/qNmmlAER
+      a11O6xlEt3gtc/Q57p1ewmz5a8dcH/APFM48iU1gShsJEOCGrqYb+2tC7FTcCv2L
+      7Ew1/22Ub8lVZcvcqeWA1oZskE05JaPhU0S6UhpYuorlUQZCqdjWvzcm7qvB3e4R
+      pT9rIuG5mbL6GnxD6dxYvy7aH6aQT8B1uYpg0ZHrG2ECgYEA7Hk09YVyssfwWBoL
+      magwhGss0i3Y+DlMvI/4zxvBsOX+fuJPypMIMHNa6HV1/yRWPPjpY5Gd0THDrx1Y
+      EWvrlgTsGnngXixH1ETyj5576c60H5EuYv1c6jUdqBioeAdF98uIA8JflPMD3XEl
+      rfE7qp490PP23UYc2BpXt04ovJsCgYEAwaGir5EP8npu7J+Z8hafovTSjL/VKzXB
+      BRqHrizdWkBm5f9JiXs7KyWZE4OWJRKkdLhsCRsOi752k0EceQD8oXHCJ2+j8uIW
+      8Cpmwh2e1WC+AhuGCOQBrQ4WEEzFQbdGYdf3+rC3wrBZUlu2/11+w3G6wQquz8mK
+      zrBcxiTG+Z0CgYA+ymhvkUHFiyWcnz3ZTTmkz7iVDquALebcYvZUODCUQl3zXzCE
+      v8n644aOFzJ/zyw/AHEoiS/4rlghlY8fASMLML9owFf9aZChIrWtwQ1yJfraLvi8
+      PD6ByhzX18RUKso/ZAH3zZMHwAeUs0ioCVgok+AiLcWtN8LM9yG3gL98ZQKBgC01
+      1kxz7GtLVvb81O8HhUKBM2AVsmoiZO0SIrfyVcSq4Nu23a6yDUCnyLQbt0T0s11l
+      aiQ+IwlR8VG0lDdUmagAbbrTgE5Hp99vpwqP6/QaYIMRdhxBUHrdnR01L6GGb3KN
+      AKOR+3YDwvdN3s6FQAHWXiqQmfx+LGDSIPdKwwKpAoGAT3KYldTNA//RDcNiDfce
+      ixDdaezc/eVx6iL82ezxIshIjTXnZiAJoVge/i+sbvoVBxrEJl4tlhKREh9b+JVx
+      jAd83IGMtBrOo1pgMy+ppLV3Mc8YRGXvtC2idvvlgd9XfPDFxf1S833PgYFzZRJW
+      C071HCilQNvCJdpG1C0MAEE=
+      -----END PRIVATE KEY-----
+    crt: |
+      -----BEGIN CERTIFICATE-----
+      MIICzjCCAbagAwIBAgIUG2RSlKSJbbN3sCq/BsORXppb/e0wDQYJKoZIhvcNAQEL
+      BQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTIyMTExNjA3NTgyN1oXDTIyMTIx
+      NjA3NTgyN1owFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEF
+      AAOCAQ8AMIIBCgKCAQEAstyvbkhiWkjRvhXfuP6yCOg/K1DK/IcHCLYxaogr6F8a
+      r5Y0o1jSgZaAbtbN+9rairP7J6vGWukGaJeWbXCcF+G7/fPCD29e23NiTLFsV82I
+      PSPUWTAUopRBnCOVZBOrZzhSNP3Zdf2ROBsGatcVxgi/V3C3B++80mFWGB8f1Zth
+      DYg+25VTgdm5Lteok38ZEI9KzGx3zBgvxs12MQ/AngrY46VwzaZ3w0w1v2GZlsUY
+      4Igdr1VKylIp7UmoQf330wVK9lcntyBwlbxBYR8Qq4kNCTWQOeMl6adn3+dAsR45
+      d0ez3rMDozy/AoOUBB7X3m8rxEvJgMlCFthaOlBuDwIDAQABoxgwFjAUBgNVHREE
+      DTALgglsb2NhbGhvc3QwDQYJKoZIhvcNAQELBQADggEBALDkc1KbNXfWtnnx1hd3
+      saTr8mY/UMfQSi1wBwu7sib0QLBo5IBLVxhrcYqN0EKSQjpBNIi6nS18EI9LTP9r
+      tQcdsE7P6Dqkc8cD51Fb1kYLGlkU56xQdXEWsEhQWQzwmPSmBHjXkL0+XY+s2jW0
+      BwTE7OJaSbNQ8k9cJL8gieelnrcQLykUnZSsoi+ZArhPFnXGMXOCpzyMNkujzQ/3
+      umgQe1MGlUSvWWmrcXZI6PhRFPRISz6jx8kNaTaDR9x4SW2b2FNZkq0lYjxZqrCv
+      w0dJj123JoEV7qh4dCMJaiLgiRLGv7I/BfJXe+oT+n6FaAgjXkbeUQUHpRlm8wqT
+      r7c=
+      -----END CERTIFICATE-----
+
+passthrus:
+  - host: local.s.com
+    members:
+    - host: www.donga.com
+      port: 443
+

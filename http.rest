@@ -1,0 +1,7 @@
+GET https://localhost:9443/todos/1
+
+###
+GET https://localhost:9443/ctx/1
+
+###
+GET https://localhost:9443/ctx/a/b/c/d/2

@@ -1,0 +1,18 @@
+logger:
+  gw:
+    level: debug
+    encoding: json
+    outputPaths:
+      - stderr
+      - ./logs/log.log
+
+  access-log:
+    outputPaths:
+      - stdout
+      - ./logs/access-log.log
+
+  admin:
+    level: debug
+
+  configurer:
+    level: debug

@@ -1,0 +1,41 @@
+gw:
+  servers:
+    - protocol: https
+      port: 9443
+
+    - protocol: http
+      port: 9080
+
+  auth:
+    keycloak:
+      key-server-url-pattern: "%s/auth/realms/%s/protocol/openid-connect/certs"
+
+  global:
+    include-d-conf-pattern: d\.ya?ml$
+    host: localhost
+    server:
+      proxy-insecure-skip-verify: true
+      proxy-timeout: 30
+      websocket-timeout: 45
+      passthru-timeout: 30
+      dns-resolver: '8.8.8.8:53'
+
+admin:
+  server:
+    http:
+      port: 9081
+
+  auth:
+    keycloak:
+      url: http://localhost:9082
+      realm: master
+      clientId: volt
+
+database:
+  engine: sqlite
+  dbname: volt
+  # engine: mysql
+  # host: 127.0.0.1
+  # username: test
+  # password: test
+  # port: 3306
