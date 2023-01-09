@@ -21,11 +21,20 @@ admin을 통해 쉬운 설정이 가능한 apim, 그리고 통계 및 분석이 
 
 1. docker-compose
 
+### run
+
+```
+git clone git@github.com:sanjuck/volt.git
+cd volt
+
+docker-compose up
 ```
 
-
-```
-
+gw테스트는 http://localhost:9080/todos 로 확인하실 수 있습니다. \
+\
+현재 버전에는 미완성의 apim과 sso을 위한 keycloak가 통합되어 있습니다.\
+apim : http://localhost:9081 \
+keycloak: http://localhost:9082 (default id/pw : admin/admin) \
 
 # server configuration
 
