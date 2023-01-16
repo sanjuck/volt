@@ -3,25 +3,22 @@ volt gateway
 
 # volt-gw
 
-이 프로젝트는 개인프로젝트로써, 고성능의 API G/W를 제공하기 위해 만들어 졌습니다.\
-기본적으로 아래와 같은 기능이 제공이 됩니다.
+이 프로젝트는 고성능의 API G/W를 제공하기 위해 만들었습니다
 
 * api gateway(proxy) : http, https, ws, wss
 * ingress controller (kubernetes, k8s)
 * ssh passthrough
-* api management (통합 예정)
-
-admin을 통해 쉬운 설정이 가능한 apim, 그리고 통계 및 분석이 통합될 예정입니다.
+* api management (ongoing)
+* 모니터링 (ongoing)
+* 통계 및 분석 (ongoing)
 
 # Install and Run
 
-## docker
-
-### pre require
+## pre require
 
 1. docker-compose
 
-### run
+## run
 
 ```
 git clone git@github.com:sanjuck/volt.git
@@ -30,13 +27,15 @@ cd volt
 docker-compose up
 ```
 
-gw테스트는 http://localhost:9080/todos 로 확인하실 수 있습니다. \
-\
-현재 버전에는 미완성의 apim과 sso을 위한 keycloak가 통합되어 있습니다.\
-apim : http://localhost:9081 \
-keycloak: http://localhost:9082 (default id/pw : admin/admin) \
+gw테스트는 http://localhost:9080/todos 로 확인하실 수 있습니다.
 
-# server configuration
+현재 버전에는 미완성의 apim과 sso을 위한 keycloak가 통합되어 있습니다
+* apim : http://localhost:9081
+* keycloak: http://localhost:9082 (default id/pw : admin/admin)
+
+# Gateway Configuration
+
+## Server Configuration(conf/volt.conf)
 
 ```
 servers:
@@ -61,9 +60,7 @@ global:
     dns-resolver: '8.8.8.8:53'
 ```
 
-# gateway configuration
-
-## proxy
+## Proxy Configuration
 
 ### prefix path
 ```
@@ -136,20 +133,29 @@ passthrus:
 
 ```
 
-# docker (docker-compose)
+# Monitoring
 
+Gateway에 fluentbit에 통합되어 있습니다.
+
+```mermaid
+flowchart LR
+    A[G/W fluentbit] .-> B[Fluentbit Collector] --> D[Grafana]
+    A .-> C[(influxdb)] --> D
 ```
-version: "3.7"
-services:
+
+ex)
+```
   volt-gateway:
-    image: sanjuck/volt-gateway:latest
-    network_mode: bridge
-    volumes:
-      - ./conf/:/app/conf/
-      - ./logger.yaml:/app/logger.yaml
-    ports:
-      - "9443:9443"
-      - "9080:9080"
+    environment:
+      TZ: "Asia/Seoul"
+      FLUENTBIT_OUTPUT: "influxdb -p host=influxdb -p bucket=fluentbit -p sequence_tag=_seq"
+      # FLUENTBIT_OUTPUT: "forward ..."
 ```
+fluentbit output option documantaion : https://docs.fluentbit.io/manual/pipeline/outputs
 
-# k8s (ready)
+
+# Docker (docker-compose)
+
+[docker-compose.yaml 파일 참조](./docker-compose.yaml)
+
+# K8S (ready)

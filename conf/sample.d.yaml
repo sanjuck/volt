@@ -6,6 +6,7 @@ apis:
     target:
       path: /todos
       protocol: https
+      preserve-host: false
       members:
       - host: jsonplaceholder.typicode.com
         port: 443
@@ -15,6 +16,7 @@ apis:
     target:
       path: /todos/{1}
       protocol: https
+      preserve-host: false
       members:
       - host: jsonplaceholder.typicode.com
         port: 443
@@ -24,6 +26,7 @@ apis:
     target:
       path: /todos/{2}
       protocol: https
+      preserve-host: false
       members:
       - host: jsonplaceholder.typicode.com
         port: 443
