@@ -3,6 +3,7 @@ services:
   volt-gateway:
     environment:
       TZ: "Asia/Seoul"
+      # FLUENTBIT_OUTPUT: "influxdb -p host=influxdb -p bucket=fluentbit -p sequence_tag=_seq"
     image: sanjuck/volt-gateway:latest
     network_mode: bridge
     links:
